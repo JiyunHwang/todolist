@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My TODO List</title>
+    <link rel="icon" href="" type="image/png">
+    <link rel="stylesheet" href="todolist.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+
+  </head>
+  <body onLoad="create_unfinished_todo(), create_finished_todo();">
+    <div id="content_container">
+      <div id="todolist_header">
+        <p>My TODO List</p>
+      </div>
+      <div id="todo_input_con">
+        <div class="input_wrap">
+          <input type="text" id="input_box" placeholder="Start A Todo">
+          <input type="date" id="input_date">
+        </div>
+        <button id="input_button" onClick="add_todo();">
+          Enter todo <i class="fa fa-arrow-circle-right"></i>
+        </button>
+      </div>
+
+      <!--  -->
+      <p class="header todo active">TODO</p>
+      <p class="header finished unactive">DONE</p>
+      <select class="sort" name="sort">
+        <option value="default" class="option default">등록순</option>
+        <option value="date" class="option date">기한순</option>
+      </select>
+      <div class="container todo show">
+
+      </div>
+
+      <!-- Finished  -->
+      <div class="container finished hidden">
+
+      </div>
+      <div id="todolist_footer">
+        <p id="information">개발자 모임<i class="fa fa-question-circle"></i></p>
+      </div>
+    </div>
+    <div id="popup_wrap" class="hidden">
+      <div id="popup_dim"></div>
+      <div class="popup_con">
+        <i id="fa-times-circle" class="fa fa-times-circle"></i>
+        <p class="title">TODO LIST</p>
+        <p class="subtitle">6조의 어플리케이션</p>
+        <div class="desc">
+          <div class="member_box">
+            <div class="name">홍길동</div>
+            <div class="desc">어쩌구</div>
+          </div>
+          <div class="member_box">
+            <div class="name">홍길동</div>
+            <div class="desc">어쩌구</div>
+          </div>
+          <div class="member_box">
+            <div class="name">홍길동</div>
+            <div class="desc">어쩌구</div>
+          </div>
+          <div class="member_box">
+            <div class="name">홍길동</div>
+            <div class="desc">어쩌구</div>
+          </div>
+        </div>
+        <div class="copyright">
+          copyright &copy 2020. team6. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyB-bzML1Kt4Ie1glrYwL0zbZIlOqPWbQSc",
+        authDomain: "todolist-b120c.firebaseapp.com",
+        databaseURL: "https://todolist-b120c.firebaseio.com",
+        projectId: "todolist-b120c",
+        storageBucket: "todolist-b120c.appspot.com",
+        messagingSenderId: "340149578406",
+        appId: "1:340149578406:web:eea8198fcb66b2a5f9a267"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="todolist.js"></script>
+</html>
