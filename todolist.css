@@ -77,3 +77,17 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 .popup_con .desc .member_box .desc{font-size: 13px; margin-left: 0; margin-right: 0; max-width: none; margin-bottom: 10px;}
 .popup_con .copyright{font-size: 12px; text-align: center; background-color: #4d4646; color: #fff;}
 .fa-times-circle{font-size: 15px; color: #4d4646; float: right; margin-right: 10px; margin-top: 10px;}
+.detail_con .fa-pencil{font-size: 15px; color: #4d4646; float: left; margin-left: 10px; margin-top: 10px;}
+.detail_con #todo_edit_button_editing{float: left; margin-left: 10px; margin-top: 10px;}
+.detail_con #todo_edit_button{float: left; margin-left: 10px; margin-top: 10px;}
+
+#detail_dim{width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.3); z-index: 1;}
+.detail_con{width: 280px; height: 300px; border-radius: 5px; background-color: #faf5f5; color: #4d4646; z-index: 5; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: "Noto Sans KR", sans-serif;}
+#detail_data{max-width: 210px; margin-left: auto; margin-right: auto; margin-top: 80px;}
+#detail_title{font-size: 30px; line-height: 35px; max-height: 100px; height: 100px; overflow: scroll;}
+#detail_date{font-size: 15px; font-family: "Noto Sans KR", sans-serif; border: none; background-color: transparent; outline: none;
+  padding-bottom: 5px; border-bottom: 2px solid #000;}
+#detail_date::-webkit-datetime-edit-fields-wrapper{background-color: transparent;}
+.detail_con .todo_importance{max-width: 210px; margin-left: auto; margin-right: auto; margin-top: 50px;}
+.detail_con #todo_importance_button{background-color: #faf5f5; margin-left: 0; margin-right: 0; width: 22px; height: 22px;}
+.detail_con #todo_importance_button .star{width: 20px; height: 20px;}
