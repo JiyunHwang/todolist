@@ -3,10 +3,12 @@ firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     document.getElementById('user_div').style.display = 'block';
     document.getElementById('login_div').style.display = 'none';
+    document.getElementById('content_container').style.display = 'block';
 
     var user = firebase.auth().currentUser;
   } else {
     document.getElementById('user_div').style.display = 'none';
+    document.getElementById('content_container').style.display = 'none';
     document.getElementById('login_div').style.display = 'block';
   }
 });
@@ -25,8 +27,8 @@ function login() {
 }
 
 function signUp() {
-  var userEmail = document.getElementById('email_field').value;
-  var userPass = document.getElementById('password_field').value;
+  var userEmail = document.getElementById('email_field2').value;
+  var userPass = document.getElementById('password_field2').value;
 
   firebase
     .auth()
@@ -48,6 +50,24 @@ function logout() {
   firebase.auth().signOut();
 }
 
+function toggleSignup() {
+  document.getElementById('login-toggle').style.backgroundColor = '#fff';
+  document.getElementById('login-toggle').style.color = '#222';
+  document.getElementById('signup-toggle').style.backgroundColor = '#4d4646';
+  document.getElementById('signup-toggle').style.color = '#fff';
+  document.getElementById('login-form').style.display = 'none';
+  document.getElementById('signup-form').style.display = 'block';
+}
+
+function toggleLogin() {
+  document.getElementById('login-toggle').style.backgroundColor = '#4d4646';
+  document.getElementById('login-toggle').style.color = '#fff';
+  document.getElementById('signup-toggle').style.backgroundColor = '#fff';
+  document.getElementById('signup-toggle').style.color = '#222';
+  document.getElementById('signup-form').style.display = 'none';
+  document.getElementById('login-form').style.display = 'block';
+}
+
 // login finished ----------------------------------------------------------------
 
 const popup = document.getElementById('popup_wrap');
@@ -67,7 +87,6 @@ const sort_date = document.querySelector('.option.date');
 const HIDDEN = 'hidden';
 const SHOW = 'show';
 
-//sort 방식을 저장하는 sort_by 변수
 let sort_by = 'importance';
 
 select.onchange = function () {
@@ -84,27 +103,10 @@ function set_sort_val() {
   }
 }
 
-function init_importance(star){
-  var importance;
-
-  star.classList.toggle('importance');
-  star.classList.toggle('unimportance');
-}
-
 function add_todo() {
-  var importance;
-
   input_box = document.getElementById('input_box');
   input_date = document.getElementById('input_date');
-  star = document.getElementById('input_star');
 
-  if(star.classList[0] == 'importance'){
-    importance = 'o';
-  }else if(star.classList[0] == 'unimportance') {
-    importance = 'x';
-  }
-
-  //input_bx와 input_date의 값이 있을 때만 todo 입력
   if (input_box.value.length != 0 && input_date.value.length != 0) {
     var user = firebase.auth().currentUser;
     var uid = firebase.auth().currentUser.uid;
@@ -113,7 +115,7 @@ function add_todo() {
       title: input_box.value,
       date: input_date.value,
       key: key,
-      importance: importance
+      importance: 'x',
     };
     var uid = firebase.auth().currentUser.uid;
     var updates = {};
@@ -121,7 +123,6 @@ function add_todo() {
     firebase.database().ref().update(updates);
     create_unfinished_todo();
 
-    //todo 입력 완료시 input field 초기화
     input_box.value = '';
     input_date.value = '';
   }
@@ -149,7 +150,6 @@ function create_unfinished_todo() {
 
         todo_container = document.createElement('div');
         todo_container.setAttribute('class', 'todo_container');
-        todo_container.setAttribute("onclick", "view_detail(this);");
         todo_container.setAttribute('data-key', todo_key);
 
         todo_importance = document.createElement('div');
@@ -197,6 +197,15 @@ function create_unfinished_todo() {
         fa_done = document.createElement('i');
         fa_done.setAttribute('class', 'fa fa-check');
 
+        todo_edit_button = document.createElement('button');
+        todo_edit_button.setAttribute('id', 'todo_edit_button');
+        todo_edit_button.setAttribute(
+          'onClick',
+          'todo_edit(this.parentElement.parentElement, this);'
+        );
+        fa_edit = document.createElement('i');
+        fa_edit.setAttribute('class', 'fa fa-pencil');
+
         todo_delete_button = document.createElement('button');
         todo_delete_button.setAttribute('id', 'todo_delete_button');
         todo_delete_button.setAttribute(
@@ -216,6 +225,8 @@ function create_unfinished_todo() {
         todo_container.append(todo_tool);
         todo_tool.append(todo_done_button);
         todo_done_button.append(fa_done);
+        todo_tool.append(todo_edit_button);
+        todo_edit_button.append(fa_edit);
         todo_tool.append(todo_delete_button);
         todo_delete_button.append(fa_delete);
       }
@@ -358,11 +369,11 @@ function todo_edit(todo, edit_button) {
     'finish_edit(this.parentElement.parentElement, this);'
   );
 
-  title = todo.childNodes[1].childNodes[3].childNodes[0];
+  title = todo.childNodes[1].childNodes[0];
   title.setAttribute('contenteditable', true);
 
-  date = todo.childNodes[1].childNodes[3].childNodes[1];
-  date.readOnly = false;
+  date = todo.childNodes[1].childNodes[1];
+  date.setAttribute('contenteditable', true);
 }
 function finish_edit(todo, edit_button) {
   var importance;
@@ -373,24 +384,21 @@ function finish_edit(todo, edit_button) {
     'todo_edit(this.parentElement.parentElement, this);'
   );
 
-  title = todo.childNodes[1].childNodes[3].childNodes[0];
+  title = todo.childNodes[1].childNodes[0];
   title.setAttribute('contenteditable', false);
 
-  date = todo.childNodes[1].childNodes[3].childNodes[1];
-  date.readOnly = true;
+  date = todo.childNodes[1].childNodes[1];
+  date.setAttribute('contenteditable', false);
 
-  if (todo.childNodes[1].childNodes[2].childNodes[0].classList[0] == 'importance') {
+  if (todo.childNodes[0].childNodes[0].classList[0] == 'importance') {
     importance = 'o';
-  } else if (todo.childNodes[1].childNodes[2].childNodes[0].classList[0] == 'unimportance') {
+  } else if (todo.childNodes[0].childNodes[0].classList[0] == 'unimportance') {
     importance = 'x';
   }
-
-  var todo_origin = todo.nextSibling;
-
-  var key = todo_origin.getAttribute('data-key');
+  var key = todo.getAttribute('data-key');
   var todo_obj = {
-    title: todo.childNodes[1].childNodes[3].childNodes[0].innerHTML,
-    date: todo.childNodes[1].childNodes[3].childNodes[1].value,
+    title: todo.childNodes[1].childNodes[0].innerHTML,
+    date: todo.childNodes[1].childNodes[1].innerHTML,
     key: key,
     importance: importance,
   };
@@ -417,38 +425,6 @@ function todo_delete_finished(todo) {
   todo_to_remove.remove();
 
   todo.remove();
-}
-function set_detail_importance(todo){
-  var importance;
-
-  todo.childNodes[1].childNodes[2].childNodes[0].classList.toggle('importance');
-  todo.childNodes[1].childNodes[2].childNodes[0].classList.toggle('unimportance');
-
-  var todo_list = todo.nextSibling;
-
-  var key = todo_list.getAttribute("data-key");
-  var importance;
-
-  todo_list.childNodes[0].childNodes[0].classList.toggle('importance');
-  todo_list.childNodes[0].childNodes[0].classList.toggle('unimportance');
-
-  if(todo_list.childNodes[0].childNodes[0].classList[0] == 'importance'){
-    importance = 'o';
-  }else if(todo_list.childNodes[0].childNodes[0].classList[0] == 'unimportance') {
-    importance = 'x';
-  }
-
-  var todo_obj = {
-    title: todo_list.childNodes[1].childNodes[0].innerHTML,
-    date: todo_list.childNodes[1].childNodes[1].innerHTML,
-    key: key,
-    importance: importance
-  }
-
-  var updates = {};
-  var uid = firebase.auth().currentUser.uid;
-  updates['user/' + uid + '/unfinished/' + key] = todo_obj;
-  firebase.database().ref().update(updates);
 }
 function set_importance(todo) {
   var key = todo.getAttribute('data-key');
@@ -477,74 +453,11 @@ function set_importance(todo) {
 
   create_unfinished_todo();
 }
-function view_detail(todo){
-  detail_wrap = document.createElement('div');
-  detail_wrap.setAttribute('id', 'detail_wrap');
-
-  detail_dim = document.createElement('div');
-  detail_dim.setAttribute('id', 'detail_dim');
-  detail_dim.setAttribute('onclick', 'close_detail(this.parentElement);');
-
-  detail_con = document.createElement('div');
-  detail_con.setAttribute('class', 'detail_con');
-
-  fa_edit = document.createElement('i');
-  fa_edit.setAttribute('id', 'fa-edit');
-  fa_edit.setAttribute('class', 'fa fa-pencil');
-  fa_edit.setAttribute('onclick', 'todo_edit(this.parentElement.parentElement, this);');
-
-  todo_importance = document.createElement("div");
-  todo_importance.setAttribute("class", "todo_importance");
-
-  todo_importance_button = document.createElement("button");
-  todo_importance_button.setAttribute("id", "todo_importance_button");
-  if(todo.childNodes[0].childNodes[0].classList.contains('importance')){
-    todo_importance_button.setAttribute('class', '');
-    todo_importance_button.setAttribute('class', 'importance');
-  }else if(todo.childNodes[0].childNodes[0].classList.contains('unimportance')){
-    todo_importance_button.setAttribute('class', '');
-    todo_importance_button.setAttribute('class', 'unimportance');
-  }
-  todo_importance_button.setAttribute('onClick', 'set_detail_importance(this.parentElement.parentElement.parentElement);');
-
-  todo_importance_button_icon = document.createElement("i");
-  todo_importance_button_icon.setAttribute("class", "star");
-
-  fa_close = document.createElement('i');
-  fa_close.setAttribute('id', 'fa-close');
-  fa_close.setAttribute('class', 'fa fa-times-circle');
-  fa_close.setAttribute('onclick', 'close_detail(this.parentElement.parentElement);');
-
-  detail_data = document.createElement('div');
-  detail_data.setAttribute('id', 'detail_data');
-
-  detail_title = document.createElement('p');
-  detail_title.setAttribute('id', 'detail_title');
-  detail_title.setAttribute('contenteditable', 'false');
-  detail_title.innerHTML = todo.childNodes[1].childNodes[0].innerHTML;
-
-  detail_date = document.createElement('input');
-  detail_date.value = todo.childNodes[1].childNodes[1].innerHTML;
-  detail_date.setAttribute('type', 'date');
-  detail_date.setAttribute('id', 'detail_date');
-  detail_date.readOnly = true;
-
-
-  todo.parentElement.insertBefore(detail_wrap, todo);
-  detail_wrap.append(detail_dim);
-  detail_wrap.append(detail_con);
-  detail_con.append(fa_edit);
-  detail_con.append(fa_close);
-  detail_con.append(todo_importance);
-  todo_importance.append(todo_importance_button);
-  todo_importance_button.append(todo_importance_button_icon);
-  detail_con.append(detail_data);
-  detail_data.append(detail_title);
-  detail_data.append(detail_date);
+function sort_by_default() {
+  console.log('sort_by_default');
 }
-function close_detail(detail_wrap){
-  detail_wrap.remove();
-  create_unfinished_todo();
+function sort_by_date() {
+  console.log('sort_by_date');
 }
 popupdim.addEventListener('click', function () {
   popup.classList.toggle(HIDDEN);
@@ -560,36 +473,24 @@ info.addEventListener('click', function () {
 });
 
 header_todo.addEventListener('click', function () {
-  //클릭 시 해당 헤더가 unactive일 때만 active로 상태를 바꿀 수 있게 한다
-    if(header_todo.classList.contains("unactive")){
-      //todo와 done 헤더의 상태 변경
-      header_todo.classList.toggle("active");
-      header_todo.classList.toggle("unactive");
-      header_finished.classList.toggle("active");
-      header_finished.classList.toggle("unactive");
-      //보여지는 container 변경
-      container_todo.classList.toggle(HIDDEN);
-      container_todo.classList.toggle(SHOW);
-      container_finished.classList.toggle(HIDDEN);
-      container_finished.classList.toggle(SHOW);
-      //DB에서 데이터 가져와서 화면에 띄움
-      create_unfinished_todo();
-    }
+  header_todo.classList.toggle('active');
+  header_todo.classList.toggle('unactive');
+  header_finished.classList.toggle('active');
+  header_finished.classList.toggle('unactive');
+  container_todo.classList.toggle(HIDDEN);
+  container_todo.classList.toggle(SHOW);
+  container_finished.classList.toggle(HIDDEN);
+  container_finished.classList.toggle(SHOW);
+  create_unfinished_todo();
 });
 header_finished.addEventListener('click', function () {
-  //클릭 시 해당 헤더가 unactive일 때만 active로 상태를 바꿀 수 있게 한다
-  if(header_finished.classList.contains("unactive")){
-    //todo와 done 헤더의 상태 변경
-    header_todo.classList.toggle("active");
-    header_todo.classList.toggle("unactive");
-    header_finished.classList.toggle("active");
-    header_finished.classList.toggle("unactive");
-    //보여지는 container 변경
-    container_todo.classList.toggle(HIDDEN);
-    container_todo.classList.toggle(SHOW);
-    container_finished.classList.toggle(HIDDEN);
-    container_finished.classList.toggle(SHOW);
-    //DB에서 데이터 가져와서 화면에 띄움
-    create_finished_todo();
-  }
+  header_todo.classList.toggle('active');
+  header_todo.classList.toggle('unactive');
+  header_finished.classList.toggle('active');
+  header_finished.classList.toggle('unactive');
+  container_todo.classList.toggle(HIDDEN);
+  container_todo.classList.toggle(SHOW);
+  container_finished.classList.toggle(HIDDEN);
+  container_finished.classList.toggle(SHOW);
+  create_finished_todo();
 });
