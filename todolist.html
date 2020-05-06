@@ -9,7 +9,9 @@
       href="https://fonts.googleapis.com/css?family=Nunito:400,600,700"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="stylesheet.css" />
+
+    <!-- <link rel="stylesheet" href="style.css" /> -->
     <link rel="stylesheet" href="todolist.css" type="text/css" />
     <link
       rel="stylesheet"
@@ -20,26 +22,58 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
   </head>
 
-  <div id="login_div" class="main-div">
-    <h3>Todooo</h3>
-    <input type="email" placeholder="Email..." id="email_field" />
-    <input type="password" placeholder="Password..." id="password_field" />
-
-    <button onclick="login()">로그인</button>
-    <button onclick="signUp()">회원가입</button>
-  </div>
-
-  <div id="user_div" class="loggedin-div">
-    <h3>Todooo</h3>
-    <p id="user_para"></p>
-    <button onclick="logout()">Logout</button>
-  </div>
-
   <body onLoad="create_unfinished_todo(), create_finished_todo();">
+    <div class="form-modal" id="login_div">
+      <div class="form-toggle">
+        <button id="login-toggle" onclick="toggleLogin()">log in</button>
+        <button id="signup-toggle" onclick="toggleSignup()">sign up</button>
+      </div>
+
+      <div id="login-form">
+        <form>
+          <input
+            type="email"
+            placeholder="Enter email or username"
+            id="email_field"
+          />
+          <input
+            type="password"
+            placeholder="Enter password"
+            id="password_field"
+          />
+          <button type="button" class="btn login" onclick="login()">
+            login
+          </button>
+        </form>
+      </div>
+
+      <div id="signup-form">
+        <form>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            id="email_field2"
+          />
+          <input
+            type="password"
+            placeholder="Create password"
+            id="password_field2"
+          />
+          <button type="button" class="btn signup" onclick="signUp()">
+            create account
+          </button>
+        </form>
+      </div>
+    </div>
+
     <div id="content_container">
       <div id="todolist_header">
         <p>My TODO List</p>
+        <div id="user_div" class="loggedin-div">
+          <button onclick="logout()">Logout</button>
+        </div>
       </div>
+
       <div id="todo_input_con">
         <div class="input_wrap">
           <button type="button" id="input_star" class="unimportance" onclick="init_importance(this);">
@@ -99,9 +133,7 @@
     </div>
   </body>
   <script>
-    var firebaseConfig = {
-        //본인 firebase 삽입
-      };
+    var firebaseConfig = {};
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
