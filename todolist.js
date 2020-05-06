@@ -560,24 +560,36 @@ info.addEventListener('click', function () {
 });
 
 header_todo.addEventListener('click', function () {
-  header_todo.classList.toggle('active');
-  header_todo.classList.toggle('unactive');
-  header_finished.classList.toggle('active');
-  header_finished.classList.toggle('unactive');
-  container_todo.classList.toggle(HIDDEN);
-  container_todo.classList.toggle(SHOW);
-  container_finished.classList.toggle(HIDDEN);
-  container_finished.classList.toggle(SHOW);
-  create_unfinished_todo();
+  //클릭 시 해당 헤더가 unactive일 때만 active로 상태를 바꿀 수 있게 한다
+    if(header_todo.classList.contains("unactive")){
+      //todo와 done 헤더의 상태 변경
+      header_todo.classList.toggle("active");
+      header_todo.classList.toggle("unactive");
+      header_finished.classList.toggle("active");
+      header_finished.classList.toggle("unactive");
+      //보여지는 container 변경
+      container_todo.classList.toggle(HIDDEN);
+      container_todo.classList.toggle(SHOW);
+      container_finished.classList.toggle(HIDDEN);
+      container_finished.classList.toggle(SHOW);
+      //DB에서 데이터 가져와서 화면에 띄움
+      create_unfinished_todo();
+    }
 });
 header_finished.addEventListener('click', function () {
-  header_todo.classList.toggle('active');
-  header_todo.classList.toggle('unactive');
-  header_finished.classList.toggle('active');
-  header_finished.classList.toggle('unactive');
-  container_todo.classList.toggle(HIDDEN);
-  container_todo.classList.toggle(SHOW);
-  container_finished.classList.toggle(HIDDEN);
-  container_finished.classList.toggle(SHOW);
-  create_finished_todo();
+  //클릭 시 해당 헤더가 unactive일 때만 active로 상태를 바꿀 수 있게 한다
+  if(header_finished.classList.contains("unactive")){
+    //todo와 done 헤더의 상태 변경
+    header_todo.classList.toggle("active");
+    header_todo.classList.toggle("unactive");
+    header_finished.classList.toggle("active");
+    header_finished.classList.toggle("unactive");
+    //보여지는 container 변경
+    container_todo.classList.toggle(HIDDEN);
+    container_todo.classList.toggle(SHOW);
+    container_finished.classList.toggle(HIDDEN);
+    container_finished.classList.toggle(SHOW);
+    //DB에서 데이터 가져와서 화면에 띄움
+    create_finished_todo();
+  }
 });
