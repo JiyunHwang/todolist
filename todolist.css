@@ -4,9 +4,9 @@ body{background-color: #75b79e; margin: 0; padding: 40px 20px;}
 #content_container{overflow: hidden; background-color: #5b5656; border-radius: 5px; padding-top: 0; padding-bottom: 0;}
 #todolist_header{background-color: #4d4646; color: #fff; font-size: 30px; line-height: 36px; padding: 22px 0; font-family: 'Noto Sans KR', sans-serif; font-weight: 700; text-align: center;}
 #todolist_header p{margin-block-start: 0; margin-block-end: 0;}
-#todo_input_con{background-color: #fff; overflow: hidden; padding: 25px 0;}
-/* .input_wrap{display: flex; vertical-align: center; justify-content: center;} */
-#input_box{width: 100%; float: left; height: 30px; margin-right: 5px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
+#todo_input_con{background-color: #fff; overflow: hidden; padding: 25px 0; text-align: center;}
+.input_wrap{margin-bottom: 15px;}
+#input_box{width: 60%; height: 30px; margin-right: 5px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
   font-family: "Noto Sans KR", sans-serif; font-size: 16px; font-weight: 700; padding: 0; transition: 0.3s;}
 #todolist_footer{background-color: #4d4646; color: #fff; padding: 20px 0; font-size: 13px; line-height: 20px; font-family: 'Noto Sans KR', sans-serif; text-align: center; width: 100%; float: left;}
 #todolist_footer p{margin-block-start: 0; margin-block-end: 0;}
@@ -22,7 +22,7 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 #input_box:-ms-input-placeholder{font-family: "Noto Sans KR", sans-serif; font-size: 16px; color: #000;}
 #input_box:-moz-placeholder{font-family: "Noto Sans KR", sans-serif; font-size: 16px; color: #000;}
 
-#input_date{width: 80%; float: left; height: 30px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
+#input_date{width: 60%; height: 30px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
   font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: 16px; padding: 0; transition: 0.3s;}
 #input_date:focus{border-bottom: 2px solid #2c786c; outline: none;}
 
@@ -38,10 +38,10 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
   opacity: 1; display: block; float: left; color: #75b79e; width: 10px; height: 7px;
 }
 
-#input_button{width: 60%; float: left; margin-left: 20%; margin-top: 15px; height: 30px; border: 2px solid #75b79e; border-radius: 5px;
+#input_button{width: 50%; float: left; margin-left: 25%; margin-top: 15px; height: 30px; border: 2px solid #75b79e; border-radius: 5px;
   cursor: pointer; background-color: #fff; color: #2c786c; outline: none; text-align: center; font-family: "Noto Sans KR", sans-serif; font-size: 15px;}
 
-#todo_input_con #input_star{float: left; background-color: #fff; border: 0px none; outline: none; margin-top: 7px; margin-left: 0; margin-right: 10px; width: 22px; height: 22px;}
+#todo_input_con #input_star{background-color: #fff; border: 0px none; outline: none; width: 10%; margin-left: 45%; margin-right: 45%; height: 22px;}
 #todo_input_con #input_star .star{width: 20px; height: 20px;}
 #todo_input_con #input_star.importance .star{background-image: url(star_importance.png); }
 #todo_input_con #input_star.unimportance .star{background-image: url(star_unimportance.png); }
@@ -62,7 +62,7 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 #todo_tool{display: inline-block; height: 100%; float: right; display: flex; justify-content: center; align-items: center;}
 #todo_done_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_undo_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
-#todo_edit_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
+#todo_edit_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #faf5f5; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_edit_button_editing{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #ffed83; color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_delete_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none;}
 .fa-question-circle{color: #fff; font-size: 10px;}
@@ -72,7 +72,7 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 .star{display: inline-block; width: 15px; height: 15px;
   background-size: cover; background-position: center center; background-repeat: no-repeat;}
 
-#todo_title{display: inline-block; margin: 0; font-family: "Noto Sans KR", sans-serif; font-size: 17px; font-weight: 500; float: left; width: 80%;}
+#todo_title{display: inline-block; margin: 0; font-family: "Noto Sans KR", sans-serif; font-size: 17px; font-weight: 500; float: left; width: 80%; max-width: 80%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 #todo_date{display: inline-block; margin: 0; font-family: "Noto Sans KR", sans-serif; font-size: 13px; float: left; margin-bottom: 5px;}
 
 .hidden{display: none;}
@@ -94,7 +94,7 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 #detail_dim{width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.3); z-index: 1;}
 .detail_con{width: 280px; height: 300px; border-radius: 5px; background-color: #faf5f5; color: #4d4646; z-index: 5; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); font-family: "Noto Sans KR", sans-serif;}
 #detail_data{max-width: 210px; margin-left: auto; margin-right: auto; margin-top: 80px;}
-#detail_title{font-size: 30px; line-height: 35px; max-height: 100px; height: 100px; overflow: scroll;}
+#detail_title{font-size: 30px; line-height: 35px; max-height: 105px; height: 105px; width: 210px; max-width: 210px; word-break: break-all; overflow: scroll;}
 #detail_date{font-size: 15px; font-family: "Noto Sans KR", sans-serif; border: none; background-color: transparent; outline: none;
   padding-bottom: 5px; border-bottom: 2px solid #000;}
 #detail_date::-webkit-datetime-edit-fields-wrapper{background-color: transparent;}
