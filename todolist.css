@@ -5,8 +5,8 @@ body{background-color: #75b79e; margin: 0; padding: 40px 20px;}
 #todolist_header{background-color: #4d4646; color: #fff; font-size: 30px; line-height: 36px; padding: 22px 0; font-family: 'Noto Sans KR', sans-serif; font-weight: 700; text-align: center;}
 #todolist_header p{margin-block-start: 0; margin-block-end: 0;}
 #todo_input_con{background-color: #fff; overflow: hidden; padding: 25px 0;}
-.input_wrap{display: flex; vertical-align: center; justify-content: center;}
-#input_box{width: 53.5%; float: left; height: 30px; margin-right: 5px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
+/* .input_wrap{display: flex; vertical-align: center; justify-content: center;} */
+#input_box{width: 100%; float: left; height: 30px; margin-right: 5px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
   font-family: "Noto Sans KR", sans-serif; font-size: 16px; font-weight: 700; padding: 0; transition: 0.3s;}
 #todolist_footer{background-color: #4d4646; color: #fff; padding: 20px 0; font-size: 13px; line-height: 20px; font-family: 'Noto Sans KR', sans-serif; text-align: center; width: 100%; float: left;}
 #todolist_footer p{margin-block-start: 0; margin-block-end: 0;}
@@ -22,9 +22,11 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 #input_box:-ms-input-placeholder{font-family: "Noto Sans KR", sans-serif; font-size: 16px; color: #000;}
 #input_box:-moz-placeholder{font-family: "Noto Sans KR", sans-serif; font-size: 16px; color: #000;}
 
-#input_date{width: 45%; float: right; height: 30px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
+#input_date{width: 80%; float: left; height: 30px; background-color: none; border: none; border-bottom: 2px solid #7fcd91; text-align: center;
   font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: 16px; padding: 0; transition: 0.3s;}
 #input_date:focus{border-bottom: 2px solid #2c786c; outline: none;}
+
+.input_title_date{float: left; width: 50%;}
 
 ::-webkit-datetime-edit-fields-wrapper{background: white;}
 ::-webkit-datetime-edit-text{color: #75b79e; padding: 0 0.1em;}
@@ -39,6 +41,14 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 #input_button{width: 60%; float: left; margin-left: 20%; margin-top: 15px; height: 30px; border: 2px solid #75b79e; border-radius: 5px;
   cursor: pointer; background-color: #fff; color: #2c786c; outline: none; text-align: center; font-family: "Noto Sans KR", sans-serif; font-size: 15px;}
 
+#todo_input_con #input_star{float: left; background-color: #fff; border: 0px none; outline: none; margin-top: 7px; margin-left: 0; margin-right: 10px; width: 22px; height: 22px;}
+#todo_input_con #input_star .star{width: 20px; height: 20px;}
+#todo_input_con #input_star.importance .star{background-image: url(star_importance.png); }
+#todo_input_con #input_star.unimportance .star{background-image: url(star_unimportance.png); }
+.star{display: inline-block; width: 15px; height: 15px;
+  background-size: cover; background-position: center center; background-repeat: no-repeat;}
+
+
 .header{float: left; margin-left: 5%; text-align: center;
   font-family: "Noto Sans KR", sans-serif; font-weight: 700; font-size: 15px; padding: 5px 20px; box-shadow: 0px 5px #4d4646;}
 .header.active{background-color: #75b79e; color: #fff;}
@@ -49,14 +59,14 @@ select.sort option{outline: none; background-color: #756e6e; border: none;}
 .todo_container.finished{color: rgb(180, 180, 180); border: 2px solid rgba(77, 70, 70, 0.8);}
 
 #todo_data{display: inline-block; float: left; width: calc(100% - 120px); height: 100%; padding-left: 10px;}
-#todo_tool{display: inline-block; height: 100%; margin-right: 10px; float: right; display: flex; justify-content: center; align-items: center;}
+#todo_tool{display: inline-block; height: 100%; float: right; display: flex; justify-content: center; align-items: center;}
 #todo_done_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_undo_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_edit_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_edit_button_editing{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #ffed83; color: #fff; border: none; border-radius: 50%; outline: none; margin-right: 5px;}
 #todo_delete_button{float: right; padding: 0; width: 16px; height: 16px; cursor: pointer; background-color: #fff; border: none; border-radius: 50%; outline: none;}
 .fa-question-circle{color: #fff; font-size: 10px;}
-#todo_importance_button{float: left; padding: 0; cursor: pointer; border: none; outline: none; margin-left: 10px; margin-right: 10px; background-color: #fff;}
+#todo_importance_button{float: left; padding: 0; cursor: pointer; border: none; outline: none; margin-right: 10px; background-color: #fff;}
 #todo_importance_button.importance .star{background-image: url(star_importance.png); }
 #todo_importance_button.unimportance .star{background-image: url(star_unimportance.png); }
 .star{display: inline-block; width: 15px; height: 15px;

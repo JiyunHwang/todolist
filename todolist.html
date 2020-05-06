@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My TODO List</title>
-    <link rel="icon" href="" type="image/png">
-    <link rel="stylesheet" href="todolist.css" type="text/css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="" type="image/png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:400,600,700"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="todolist.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
-
   </head>
+
+  <div id="login_div" class="main-div">
+    <h3>Todooo</h3>
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
+
+    <button onclick="login()">로그인</button>
+    <button onclick="signUp()">회원가입</button>
+  </div>
+
+  <div id="user_div" class="loggedin-div">
+    <h3>Todooo</h3>
+    <p id="user_para"></p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
   <body onLoad="create_unfinished_todo(), create_finished_todo();">
     <div id="content_container">
       <div id="todolist_header">
@@ -18,8 +42,13 @@
       </div>
       <div id="todo_input_con">
         <div class="input_wrap">
-          <input type="text" id="input_box" placeholder="Start A Todo">
-          <input type="date" id="input_date">
+          <button type="button" id="input_star" class="unimportance" onclick="init_importance(this);">
+            <i class="star"></i>
+          </button>
+          <div class="input_title_date">
+            <input type="text" id="input_box" placeholder="Start A Todo">
+            <input type="date" id="input_date">
+          </div>
         </div>
         <button id="input_button" onClick="add_todo();">
           Enter todo <i class="fa fa-arrow-circle-right"></i>
@@ -33,14 +62,10 @@
         <option value="default" class="option default">등록순</option>
         <option value="date" class="option date">기한순</option>
       </select>
-      <div class="container todo show">
-
-      </div>
+      <div class="container todo show"></div>
 
       <!-- Finished  -->
-      <div class="container finished hidden">
-
-      </div>
+      <div class="container finished hidden"></div>
       <div id="todolist_footer">
         <p id="information">개발자 모임<i class="fa fa-question-circle"></i></p>
       </div>
@@ -77,14 +102,8 @@
   </body>
   <script>
     var firebaseConfig = {
-        apiKey: "AIzaSyB-bzML1Kt4Ie1glrYwL0zbZIlOqPWbQSc",
-        authDomain: "todolist-b120c.firebaseapp.com",
-        databaseURL: "https://todolist-b120c.firebaseio.com",
-        projectId: "todolist-b120c",
-        storageBucket: "todolist-b120c.appspot.com",
-        messagingSenderId: "340149578406",
-        appId: "1:340149578406:web:eea8198fcb66b2a5f9a267"
-    };
+        //본인 firebase 삽입
+      };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
